@@ -1,0 +1,18 @@
+Address,Quantity,Name,Type,Scale,Unit,Description
+37113,2,grid_power,int32,1,W,Active grid power (>0 feed-in, <0 import) :contentReference[oaicite:2]{index=2}
+37101,2,grid_voltage_A,int32,0.1,V,Grid voltage phase A (×0.1) :contentReference[oaicite:3]{index=3}
+37103,2,grid_voltage_B,int32,0.1,V,Grid voltage phase B (×0.1) :contentReference[oaicite:4]{index=4}
+37105,2,grid_voltage_C,int32,0.1,V,Grid voltage phase C (×0.1) :contentReference[oaicite:5]{index=5}
+37107,2,grid_current_A,int32,0.01,A,Grid current phase A (×0.01) :contentReference[oaicite:6]{index=6}
+37109,2,grid_current_B,int32,0.01,A,Grid current phase B (×0.01) :contentReference[oaicite:7]{index=7}
+37111,2,grid_current_C,int32,0.01,A,Grid current phase C (×0.01) :contentReference[oaicite:8]{index=8}
+2081,2,active_power,int32,1,W,AC active power (same as grid_power) :contentReference[oaicite:9]{index=9}
+2063,?,pv_input_power,int32,1,W,Input power from PV strings (DC) :contentReference[oaicite:10]{index=10}
+2105,2,energy_total,uint32,1,kWh,Total energy yield (lifetime) :contentReference[oaicite:11]{index=11}
+2113,2,energy_daily,uint32,1,kWh,Daily energy yield :contentReference[oaicite:12]{index=12}
+38229,1,battery_soc,uint16,0.1,%,Battery State of Charge (SOC ×0.1) :contentReference[oaicite:13]{index=13}
+38233,2,battery_power,int32,1,W,Battery charge/discharge power (>0 discharge, <0 charge) :contentReference[oaicite:14]{index=14}
+38235,1,battery_voltage,uint16,0.1,V,Battery pack voltage ×0.1 :contentReference[oaicite:15]{index=15}
+38236,1,battery_current,int16,0.01,A,Battery current ×0.01 :contentReference[oaicite:16]{index=16}
+38238,2,battery_total_charge,uint32,0.01,kWh,Battery total charged energy ×0.01 :contentReference[oaicite:17]{index=17}
+38240,2,battery_total_discharge,uint32,0.01,kWh,Battery total discharged energy ×0.01 :contentReference[oaicite:18]{index=18}

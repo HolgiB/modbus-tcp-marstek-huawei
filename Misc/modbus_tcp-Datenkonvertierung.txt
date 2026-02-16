@@ -1,0 +1,175 @@
+Wie verarbeite ich die einzelnen Register (signed 16 bit, unsigned 32 bit etc) in NodeRed weiter
+msg.payload = [value1, value2, ...]
+
+🔧 Verarbeitung nach Datentyp
+✅ A) unsigned 16 bit (uint16)
+
+Typisch: SOC, Spannung, Status
+
+Beispiel
+
+Register: 38229
+
+Wert: 700 → 70.0 %
+
+Function Node
+let v = msg.payload[0];     // uint16
+msg.payload = v / 10;      // Skalierung
+return msg;
+
+✅ B) signed 16 bit (int16)
+
+Typisch: Temperatur, Strom, Leistung klein
+
+Function Node
+let v = msg.payload[0];
+if (v > 32767) v -= 65536; // signed int16
+msg.payload = v;
+return msg;
+
+Mit Skalierung + Rundung
+let v = msg.payload[0];
+if (v > 32767) v -= 65536;
+msg.payload = Math.round((v / 10) * 100) / 100;
+return msg;
+
+✅ C) unsigned 32 bit (uint32)
+
+Typisch: Energiezähler (kWh gesamt)
+
+2 Register: [high, low]
+
+Big-Endian bei Huawei & Marstek
+
+Function Node
+let hi = msg.payload[0];
+let lo = msg.payload[1];
+
+msg.payload = (hi << 16) + lo;
+return msg;
+
+Mit Skalierung (×0.01)
+let hi = msg.payload[0];
+let lo = msg.payload[1];
+
+msg.payload = Math.round(((hi << 16) + lo) / 100 * 100) / 100;
+return msg;
+
+✅ D) signed 32 bit (int32) (sehr wichtig!)
+
+Typisch:
+
+Gridpower
+
+Battery charge / discharge
+
+Inverter active power
+
+Function Node (Standardlösung)
+let hi = msg.payload[0];
+let lo = msg.payload[1];
+
+let v = (hi << 16) | lo;
+if (v & 0x80000000) v -= 0x100000000;
+
+msg.payload = v;
+return msg;
+
+Mit Skalierung + Rundung
+let hi = msg.payload[0];
+let lo = msg.payload[1];
+
+let v = (hi << 16) | lo;
+if (v & 0x80000000) v -= 0x100000000;
+
+msg.payload = Math.round((v / 1) * 100) / 100;
+return msg;
+
+🔁 E) Universelle Helper-Functions (Best Practice)
+
+Ich empfehle dir eine Function Node, die du kopierst:
+
+function int16(v) {
+    return v > 32767 ? v - 65536 : v;
+}
+
+function uint32(hi, lo) {
+    return (hi << 16) + lo;
+}
+
+function int32(hi, lo) {
+    let v = (hi << 16) | lo;
+    return v & 0x80000000 ? v - 0x100000000 : v;
+}
+
+Anwendung
+let soc = msg.payload[0];              // uint16
+let grid = int32(msg.payload[0], msg.payload[1]);
+
+🧩 Typischer Huawei Flow (realistisch)
+1️⃣ Gridpower (signed int32)
+
+Address: 37113
+
+Quantity: 2
+
+let v = (msg.payload[0] << 16) | msg.payload[1];
+if (v & 0x80000000) v -= 0x100000000;
+msg.payload = v;
+return msg;
+
+2️⃣ Battery SOC
+
+Address: 38229
+
+Quantity: 1
+
+msg.payload = msg.payload[0] / 10;
+return msg;
+
+3️⃣ PV Power
+
+Address: 2063
+
+Quantity: 2
+
+let v = (msg.payload[0] << 16) | msg.payload[1];
+msg.payload = v;
+return msg;
+
+🧠 Merksätze (Gold wert)
+
+Modbus → immer Array
+
+HA → keine Arrays
+
+>32767 → signed vergessen
+
+2 Register → 32 bit
+
+Huawei → Big-Endian
+
+✅ Empfehlung für dich
+
+Mach dir:
+
+🧩 einen Subflow „Modbus Decode“
+
+Parameter:
+
+type: int16 / uint16 / int32 / uint32
+
+scale
+
+round
+
+Dann bist du:
+
+unabhängig von Python-Monstern
+
+update-sicher
+
+HA-stabil
+
+Wenn du willst, baue ich dir so einen Subflow direkt zum Import (JSON).
+Soll ich das machen?

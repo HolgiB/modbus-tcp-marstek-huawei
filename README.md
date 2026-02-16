@@ -137,7 +137,7 @@ huawei/grid-power               - Leistung Stromzähler (- = Netzbezug / + = Ein
 huawei/battery-1-soc            - SOC Batterie #1
 huawei/battery-1-temp           - Temperatur Batterie #1
 huawei/inverter-temp            - Interne Inverter-Temperatur
-huawei/battery-1-power          - Lade- / Entladeleistung Batterie
+huawei/battery-1-power          - Lade- / Entladeleistung Batterie #1
 ```
 
 ### Marstek Venus

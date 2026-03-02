@@ -1,0 +1,955 @@
+[
+    {
+        "id": "a6130db21125c4e0",
+        "type": "tab",
+        "label": "Huawei Modbus TCP",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fe3a6fb22422f1b0",
+        "type": "inject",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 40,
+        "wires": [
+            [
+                "7e29b8da2aa0efc2"
+            ]
+        ]
+    },
+    {
+        "id": "7e29b8da2aa0efc2",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "Zaehlschleife",
+        "func": "// ----- Zähler mit automatischer Rücksetzung -----\n\n// Konfiguration – hier ändern\nconst MAX_WERT = 7;           // ← bei diesem Wert wird zurückgesetzt\nconst RESET_WERT = 1;          // meist 0, kann aber auch 1 sein etc.\n\n// ===============================================\n\nlet count = context.get(\"count\") || RESET_WERT;\n\n// Zähler erhöhen (fast immer so)\ncount = count + 1;\n\n// Automatisches Zurücksetzen\nif (count >= MAX_WERT) {\n    count = RESET_WERT;\n    \n    // Optional: Hier kannst du etwas Besonderes machen,\n    // wenn der Zähler gerade zurückgesetzt wurde\n    msg.resetHappened = true;\n    // msg.payload = \"Zyklus komplett!\";\n}\n\ncontext.set(\"count\", count);\n\nmsg.payload = count;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 220,
+        "wires": [
+            [
+                "e585fc5464479443",
+                "a461d603e2063ced",
+                "c2d234463307ac5c",
+                "1477780a06beb3e4",
+                "a114da65cdeb5bff",
+                "a1d0978e6c996dd5"
+            ]
+        ]
+    },
+    {
+        "id": "e585fc5464479443",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "= 1",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 20,
+        "wires": [
+            [
+                "da915ecee7fdf1f3"
+            ]
+        ]
+    },
+    {
+        "id": "a461d603e2063ced",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "= 2",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "7fe58adeddd7cfc1"
+            ]
+        ]
+    },
+    {
+        "id": "c2d234463307ac5c",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "= 3",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "e4f2839bf9aaf98f"
+            ]
+        ]
+    },
+    {
+        "id": "1477780a06beb3e4",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "= 4",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "808fdb050c96a35a"
+            ]
+        ]
+    },
+    {
+        "id": "a114da65cdeb5bff",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "= 5",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 360,
+        "wires": [
+            [
+                "69d4a6908e299a0f"
+            ]
+        ]
+    },
+    {
+        "id": "a1d0978e6c996dd5",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "= 6",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 440,
+        "wires": [
+            [
+                "1bbca96d06cc022f"
+            ]
+        ]
+    },
+    {
+        "id": "d7a9ce393bf616dc",
+        "type": "mqtt out",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "topic": "huawei/grid-power",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "37ff3c46980d4dbb",
+        "x": 1250,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "556633c63b4979f2",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "NaN Filter",
+        "func": "let v = Number(msg.payload);\n\nif (!Number.isFinite(v)) {\n    node.warn(\"Ungültiger Wert (NaN) verworfen\");\n    return null;\n}\n\nmsg.payload = v;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 80,
+        "wires": [
+            [
+                "d7a9ce393bf616dc"
+            ]
+        ]
+    },
+    {
+        "id": "dde325d30ca13c32",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "INT32 Grid Power (signed W)",
+        "func": "const hi = msg.payload[0];\nconst lo = msg.payload[1];\n\nlet value = hi * 65536 + lo;\n\n// signed INT32\nif (value >= 2147483648) {\n    value -= 4294967296;\n}\n\n// Huawei sanity check\nif (value < -100000 || value > 100000) {\n    // unrealistisch → ignorieren\n    node.warn(\"Unplausible grid power: \" + value);\n    return null;\n}\n\nmsg.payload = value;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 20,
+        "wires": [
+            [
+                "556633c63b4979f2"
+            ]
+        ]
+    },
+    {
+        "id": "da915ecee7fdf1f3",
+        "type": "modbus-getter",
+        "z": "a6130db21125c4e0",
+        "name": "Grid Power",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "37113",
+        "quantity": "2",
+        "server": "9110b13c79c76bcf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 630,
+        "y": 20,
+        "wires": [
+            [
+                "dde325d30ca13c32"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "2e9e97edc28d4897",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "SOC %",
+        "func": "const raw = msg.payload[0];\n\n// optional: wenn Huawei /10 nutzt\nmsg.payload = Math.round((raw / 10) * 100) / 100;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 120,
+        "wires": [
+            [
+                "e7869e1ac677ea79"
+            ]
+        ]
+    },
+    {
+        "id": "8818af1a61e977f5",
+        "type": "mqtt out",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "topic": "huawei/battery-1-soc",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "37ff3c46980d4dbb",
+        "x": 1260,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e7869e1ac677ea79",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "NaN Filter",
+        "func": "let v = Number(msg.payload);\n\nif (!Number.isFinite(v)) {\n    node.warn(\"Ungültiger Wert (NaN) verworfen\");\n    return null;\n}\n\nmsg.payload = v;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 160,
+        "wires": [
+            [
+                "8818af1a61e977f5"
+            ]
+        ]
+    },
+    {
+        "id": "7fe58adeddd7cfc1",
+        "type": "modbus-getter",
+        "z": "a6130db21125c4e0",
+        "name": "SOC",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "37004",
+        "quantity": "1",
+        "server": "9110b13c79c76bcf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 630,
+        "y": 120,
+        "wires": [
+            [
+                "2e9e97edc28d4897"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "df619b9c8071684a",
+        "type": "mqtt out",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "topic": "huawei/inverter-temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "37ff3c46980d4dbb",
+        "x": 1260,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2ea861de29ca4906",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "NaN Filter",
+        "func": "let v = Number(msg.payload);\n\nif (!Number.isFinite(v)) {\n    node.warn(\"Ungültiger Wert (NaN) verworfen\");\n    return null;\n}\n\nmsg.payload = v;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 240,
+        "wires": [
+            [
+                "df619b9c8071684a"
+            ]
+        ]
+    },
+    {
+        "id": "f927c79c96c65624",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "Temp °C",
+        "func": "const raw = msg.payload[0];\n\n// optional: wenn Huawei /10 nutzt\nmsg.payload = Math.round((raw / 10) * 100) / 100;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 200,
+        "wires": [
+            [
+                "2ea861de29ca4906"
+            ]
+        ]
+    },
+    {
+        "id": "e4f2839bf9aaf98f",
+        "type": "modbus-getter",
+        "z": "a6130db21125c4e0",
+        "name": "Inverter Temp",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "32087",
+        "quantity": "1",
+        "server": "9110b13c79c76bcf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 660,
+        "y": 200,
+        "wires": [
+            [
+                "f927c79c96c65624"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c8756192d72e69d7",
+        "type": "mqtt out",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "topic": "huawei/battery-1-temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c724c4775dbcf9f9",
+        "x": 1260,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f710385144777d69",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "Temp °C",
+        "func": "const raw = msg.payload[0];\n\n// optional: wenn Huawei /10 nutzt\nmsg.payload = Math.round((raw / 10) * 100) / 100;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 300,
+        "wires": [
+            [
+                "f97af11352dd32ec"
+            ]
+        ]
+    },
+    {
+        "id": "f97af11352dd32ec",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "NaN Filter",
+        "func": "let v = Number(msg.payload);\n\nif (!Number.isFinite(v)) {\n    node.warn(\"Ungültiger Wert (NaN) verworfen\");\n    return null;\n}\n\nmsg.payload = v;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 320,
+        "wires": [
+            [
+                "c8756192d72e69d7"
+            ]
+        ]
+    },
+    {
+        "id": "808fdb050c96a35a",
+        "type": "modbus-getter",
+        "z": "a6130db21125c4e0",
+        "name": "Battery 1 Temp",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "37022",
+        "quantity": "1",
+        "server": "9110b13c79c76bcf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 660,
+        "y": 280,
+        "wires": [
+            [
+                "f710385144777d69"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ac69b3e610ef1192",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "NaN Filter",
+        "func": "let v = Number(msg.payload);\n\nif (!Number.isFinite(v)) {\n    node.warn(\"Ungültiger Wert (NaN) verworfen\");\n    return null;\n}\n\nmsg.payload = v;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 400,
+        "wires": [
+            [
+                "c901519324fe1b32"
+            ]
+        ]
+    },
+    {
+        "id": "91e3e658ee410a7e",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "INT32 PV Power (W)",
+        "func": "// hi + lo aus Array\nconst hi = msg.payload[0];\nconst lo = msg.payload[1];\n\n// zusammenrechnen\nlet value = hi * 65536 + lo;\n\n// signed INT32\nif (value >= 2147483648) {\n    value -= 4294967296;\n}\n\nmsg.payload = value;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 360,
+        "wires": [
+            [
+                "ac69b3e610ef1192"
+            ]
+        ]
+    },
+    {
+        "id": "c901519324fe1b32",
+        "type": "mqtt out",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "topic": "huawei/battery-1-power",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "37ff3c46980d4dbb",
+        "x": 1270,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "69d4a6908e299a0f",
+        "type": "modbus-getter",
+        "z": "a6130db21125c4e0",
+        "name": "Battery 1 Power",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "37001",
+        "quantity": "2",
+        "server": "9110b13c79c76bcf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 660,
+        "y": 360,
+        "wires": [
+            [
+                "91e3e658ee410a7e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "69aca8b3500b952d",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "INT32 PV Power (W)",
+        "func": "const hi = msg.payload[0];\nconst lo = msg.payload[1];\n\n// unsigned 32 bit zusammensetzen\nlet value = hi * 65536 + lo;\n\n// signed umwandeln\nif (value >= 2147483648) {\n    value -= 4294967296;\n}\n\nmsg.payload = value;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 440,
+        "wires": [
+            [
+                "2dc57e5f2d05ada4"
+            ]
+        ]
+    },
+    {
+        "id": "03d2ed26a5bf815f",
+        "type": "mqtt out",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "topic": "huawei/pv-power",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "37ff3c46980d4dbb",
+        "x": 1270,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c97457e6504dc4d7",
+        "type": "within-time-switch",
+        "z": "a6130db21125c4e0",
+        "name": "",
+        "nameInt": "",
+        "positionConfig": "c88cd7aedcb1e476",
+        "startTime": "sunriseStart",
+        "startTimeType": "pdsTime",
+        "startOffset": 0,
+        "startOffsetType": "none",
+        "startOffsetMultiplier": 60000,
+        "endTime": "sunsetEnd",
+        "endTimeType": "pdsTime",
+        "endOffset": 0,
+        "endOffsetType": "none",
+        "endOffsetMultiplier": 60000,
+        "timeRestrictions": 0,
+        "timeRestrictionsType": "none",
+        "timeDays": "*",
+        "timeOnlyOddDays": false,
+        "timeOnlyEvenDays": false,
+        "timeOnlyOddWeeks": false,
+        "timeOnlyEvenWeeks": false,
+        "timeMonths": "*",
+        "timedatestart": "",
+        "timedateend": "",
+        "propertyStart": "",
+        "propertyStartType": "none",
+        "propertyStartCompare": "true",
+        "propertyStartThreshold": "",
+        "propertyStartThresholdType": "num",
+        "startTimeAlt": "",
+        "startTimeAltType": "entered",
+        "startOffsetAlt": 0,
+        "startOffsetAltType": "none",
+        "startOffsetAltMultiplier": 60000,
+        "propertyEnd": "",
+        "propertyEndType": "none",
+        "propertyEndCompare": "true",
+        "propertyEndThreshold": "",
+        "propertyEndThresholdType": "num",
+        "endTimeAlt": "",
+        "endTimeAltType": "entered",
+        "endOffsetAlt": 0,
+        "endOffsetAltType": "none",
+        "endOffsetAltMultiplier": 60000,
+        "withinTimeValue": "true",
+        "withinTimeValueType": "msgInput",
+        "outOfTimeValue": "0",
+        "outOfTimeValueType": "num",
+        "tsCompare": "0",
+        "x": 680,
+        "y": 600,
+        "wires": [
+            [
+                "1d70a441ca65dcb2"
+            ],
+            [
+                "03d2ed26a5bf815f"
+            ]
+        ]
+    },
+    {
+        "id": "39a6c21f6e3b2f16",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "PV Smoothing",
+        "func": "// msg.payload = PV-Leistung aus Modbus (oder 0 W nachts)\nlet P = msg.payload;\n\n// Plausibilität: PV darf nicht negativ sein, max. Dachleistung 6 kW\nconst P_max = 6000;\nif (P < 0) P = 0;\nif (P > P_max) P = P_max;\n\n// Gleitender Mittelwert (letzte 5 Werte)\nlet history = context.get('history') || [];\nhistory.push(P);              // aktuelles Sample hinzufügen\nif (history.length > 5) {     // nur 5 Samples behalten\n    history.shift();\n}\ncontext.set('history', history);\n\n// Mittelwert berechnen\nlet P_smooth = Math.round(history.reduce((a,b)=>a+b,0) / history.length);\n\nmsg.payload = P_smooth;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 560,
+        "wires": [
+            [
+                "03d2ed26a5bf815f"
+            ]
+        ]
+    },
+    {
+        "id": "1d70a441ca65dcb2",
+        "type": "switch",
+        "z": "a6130db21125c4e0",
+        "name": "PV Power > 0",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1020,
+        "y": 540,
+        "wires": [
+            [
+                "39a6c21f6e3b2f16"
+            ]
+        ]
+    },
+    {
+        "id": "2dc57e5f2d05ada4",
+        "type": "function",
+        "z": "a6130db21125c4e0",
+        "name": "NaN Filter",
+        "func": "let v = Number(msg.payload);\n\nif (!Number.isFinite(v)) {\n    node.warn(\"Ungültiger Wert (NaN) verworfen\");\n    return null;\n}\n\nmsg.payload = v;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 540,
+        "wires": [
+            [
+                "c97457e6504dc4d7"
+            ]
+        ]
+    },
+    {
+        "id": "1bbca96d06cc022f",
+        "type": "modbus-getter",
+        "z": "a6130db21125c4e0",
+        "name": "PV Power",
+        "showStatusActivities": true,
+        "showErrors": true,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "32080",
+        "quantity": "2",
+        "server": "9110b13c79c76bcf",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 640,
+        "y": 440,
+        "wires": [
+            [
+                "69aca8b3500b952d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "37ff3c46980d4dbb",
+        "type": "mqtt-broker",
+        "name": "hb-sauger",
+        "broker": "192.168.0.181",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "9110b13c79c76bcf",
+        "type": "modbus-client",
+        "name": "Huawei Sun",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.0.122",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "c724c4775dbcf9f9",
+        "type": "mqtt-broker",
+        "name": "hb-sauger",
+        "broker": "192.168.0.181",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c88cd7aedcb1e476",
+        "type": "position-config",
+        "name": "",
+        "isValide": "true",
+        "angleType": "deg",
+        "timeZoneOffset": "99",
+        "timeZoneDST": "0",
+        "stateTimeFormat": "3",
+        "stateDateFormat": "12",
+        "contextStore": "",
+        "sunPositions": [],
+        "predefAngles": []
+    }
+]
